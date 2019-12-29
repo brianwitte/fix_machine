@@ -15,8 +15,8 @@ defmodule FixMachineWeb.Router do
 
   scope "/", FixMachineWeb do
     pipe_through :browser
-
     get "/", PageController, :index
+    resources "/registrations", UserController, only: [:create, :new]
   end
 
   # Other scopes may use custom stacks.

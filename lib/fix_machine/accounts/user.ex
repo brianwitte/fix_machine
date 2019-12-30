@@ -1,6 +1,7 @@
 defmodule FixMachine.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
+  alias FixMachine.Accounts.User
 
   schema "users" do
     field :encrypted_password, :string
@@ -10,10 +11,11 @@ defmodule FixMachine.Accounts.User do
   end
 
   @doc false
-  def changeset(user, attrs) do
+  def changeset(%User{} = user, attrs) do
     user
     |> cast(attrs, [:username, :encrypted_password])
     |> validate_required([:username, :encrypted_password])
     |> unique_constraint(:username)
+    |> update_change(:encrypted_password, &Bcrypt.hash_pwd_salt/1)
   end
 end

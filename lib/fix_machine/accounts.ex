@@ -8,6 +8,15 @@ defmodule FixMachine.Accounts do
 
   alias FixMachine.Accounts.User
 
+  # functions that have been added, the rest was gen'd by mix phx.gen.html 
+  def get_by_username(username) when is_nil(username) do
+    nil
+  end
+  def get_by_username(username) do
+    Repo.get_by(User, username: username)
+  end
+  # *****************************************************************
+  
   @doc """
   Returns the list of users.
 
